@@ -1,20 +1,27 @@
 from cctv import CCTV
+from onvif_cctv import ONVIF_CCTV
 from discovery import CCTVScanner
 from getpass import getpass
+import os
+from pathlib import Path
+
+project_root = Path(os.path.dirname(os.path.abspath(__file__)))
 
 config = {
 	"username": "admin",
 	"SN" : None,
-	"IP" : "192.168.1.29"
+	"IP" : "192.168.100.41"
 }
 
-camera = CCTV(config["username"], getpass("getpass: "), SN=config["SN"], ip=config["IP"])
+
+camera = ONVIF_CCTV(config["username"], getpass("getpass: "), SN=config["SN"], ip=config["IP"], wsdl=(project_root / "../wsdl_cache"), port=10000)
 camera.get_SN()
-camera.snapshot()
 
+camera.display_image(camera.snapshot())
 
+exit(0)
 scanner = CCTVScanner()
-scanner.scan_network("192.168.1.0/24")
+scanner.scan_network("192.168.100.0/24")
 scanner.wait()
 result = scanner.get_results()
 scanner.print_results()

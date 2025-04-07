@@ -50,6 +50,7 @@ class CCTV:
 				
 				# Optionally show the image
 				# image.show()
+				return image
 			else:
 				print(f"Failed to get snapshot. Status code: {response.status_code}")
 				print(f"Response: {response.text}")
@@ -83,6 +84,10 @@ class CCTV:
 					return True
 
 			return False
+
+	def display_image(self, image_data):
+		image.show()
+
 
 		# except requests.exceptions.RequestException as e:
 		# 	print(f"Error connecting to camera: {e}")
