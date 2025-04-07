@@ -5,11 +5,21 @@ import numpy as np
 import cv2
 
 class ONVIF_CCTV(CCTV):
-	def __init__(self, username, password, ip=None, SN=None, port=None, wsdl=None):
+	def __init__(self, username, password, ip=None, SN=None, wsdl=None):
 		super().__init__(username, password, ip, SN)
 		if self.ip is None:
 			raise Exception("ONVIF need IP to operation")
-		self.onvif = ONVIFCamera(ip, 80 if port is None else port, username, password, wsdl)
+
+		# Split into IP and port (default to 80 if no port is specified)
+		address = ip
+		if ":" in address:
+			ip, port_str = address.split(":")
+			port = int(port_str)
+		else:
+			ip = address
+			port = 80  # Default HTTP port
+
+		self.onvif = ONVIFCamera(ip, port, username, password, wsdl)
 		self.media_service = None
 
 	def get_SN(self):

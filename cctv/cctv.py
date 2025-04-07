@@ -84,11 +84,6 @@ class CCTV:
 					return True
 
 			return False
-
-	def display_image(self, image_data):
-		image.show()
-
-
 		# except requests.exceptions.RequestException as e:
 		# 	print(f"Error connecting to camera: {e}")
 		# except IOError as e:
@@ -96,5 +91,10 @@ class CCTV:
 		except Exception as e:
 			raise e
 			
+
+	def display_image(self, image_data):
+		image.show()
+
+
 
 

@@ -10,11 +10,11 @@ project_root = Path(os.path.dirname(os.path.abspath(__file__)))
 config = {
 	"username": "admin",
 	"SN" : None,
-	"IP" : "192.168.100.41"
+	"IP" : "192.168.100.41:10000"
 }
 
 
-camera = ONVIF_CCTV(config["username"], getpass("getpass: "), SN=config["SN"], ip=config["IP"], wsdl=(project_root / "../wsdl_cache"), port=10000)
+camera = ONVIF_CCTV(config["username"], getpass("getpass: "), SN=config["SN"], ip=config["IP"], wsdl=(project_root / "../wsdl_cache"))
 camera.get_SN()
 
 camera.display_image(camera.snapshot())
